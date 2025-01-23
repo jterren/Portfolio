@@ -4,6 +4,7 @@ import Image from "next/image";
 import headShot from "./assets/Headshot.jpg";
 import lsrhs from "./assets/lsrhs.jpeg";
 import gristMill from "./assets/wayside-inn-grist-mill.jpg";
+import fsu from "./assets/fsu.jpg";
 
 export default function Home() {
 	return (
@@ -11,7 +12,9 @@ export default function Home() {
 			<h1 className={"p-5 text-white text-center"}>
 				Welcome, please take your shoes off.
 			</h1>
+			{/*First container*/}
 			<div className="container-sm p-3">
+				{/*First row*/}
 				<div className="row align-items-center g-5">
 					<div className="col-sm-6 text-center">
 						<Image
@@ -38,8 +41,11 @@ export default function Home() {
           </p>
 					</div>
 				</div>
+				{/*First row end*/}
+
+				{/*Second row*/}
 				<div className="row">
-					<div className="carousel slide">
+					<div id="carousel_a" className="carousel slide">
 						<div className="carousel-inner">
 							<div className="carousel-item active">
 								<Image src={lsrhs} className="d-block w-100" alt="..." />
@@ -48,36 +54,38 @@ export default function Home() {
 								<Image src={gristMill} className="d-block w-100" alt="..." />
 							</div>
 							<div className="carousel-item">
-								{/* <Image src={} className="d-block w-100" alt="..." /> */}
+								<Image src={fsu} className="d-block w-100" alt="..." />
 							</div>
 						</div>
+						<button
+							className="carousel-control-prev"
+							type="button"
+							data-bs-target="#carousel_a"
+							data-bs-slide="prev"
+						>
+							<span
+								className="carousel-control-prev-icon"
+								aria-hidden="true"
+							></span>
+							<span className="visually-hidden">Previous</span>
+						</button>
+						<button
+							className="carousel-control-next"
+							type="button"
+							data-bs-target="#carousel_a"
+							data-bs-slide="next"
+						>
+							<span
+								className="carousel-control-next-icon"
+								aria-hidden="true"
+							></span>
+							<span className="visually-hidden">Next</span>
+						</button>
 					</div>
-					<button
-						className="carousel-control-prev"
-						type="button"
-						data-bs-target="#carouselExample"
-						data-bs-slide="prev"
-					>
-						<span
-							className="carousel-control-prev-icon"
-							aria-hidden="true"
-						></span>
-						<span className="visually-hidden">Previous</span>
-					</button>
-					<button
-						className="carousel-control-next"
-						type="button"
-						data-bs-target="#carouselExample"
-						data-bs-slide="next"
-					>
-						<span
-							className="carousel-control-next-icon"
-							aria-hidden="true"
-						></span>
-						<span className="visually-hidden">Next</span>
-					</button>
 				</div>
+				{/*Second row end*/}
 			</div>
+			{/*First container end*/}
 		</>
 	);
 }
