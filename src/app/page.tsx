@@ -1,33 +1,29 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./page.css";
 import Image from "next/image";
 import headShot from "./assets/Headshot.jpg";
-import lsrhs from "./assets/lsrhs.jpeg";
+import lsrhs from "./assets/lsrhs.jpg";
 import gristMill from "./assets/wayside-inn-grist-mill.jpg";
 import fsu from "./assets/fsu.jpg";
 
 export default function Home() {
-	return (
-		<>
-			<h1 className={"p-5 text-white text-center"}>
-				Welcome, please take your shoes off.
-			</h1>
-			{/*First container*/}
-			<div className="container-sm p-3">
-				{/*First row*/}
-				<div className="row align-items-center g-5">
-					<div className="col-sm-6 text-center">
-						<Image
-							src={headShot}
-							alt={"Test image"}
-							layout="responsive"
-							className="Image-fluid"
-						/>
-					</div>
+  return (
+    <>
+      <h1 className={"p-5 text-white text-center fs-sm-1"}>
+        &quot;Try not to become a man of success, but rather try to become a man
+        of value&quot;
+        <br />- Albert Einstein
+      </h1>
+      <div className="container-sm p-3">
+        <div className="row align-items-center g-5">
+          <div className="col-sm-6">
+            <Image src={headShot} alt={"Test image"} className="img-fluid" />
+          </div>
 
-					<div className="col-sm-6 text-center">
-						{/* prettier-ignore */}
-						<p>
+          <div className="col-sm-6 text-center">
+            {/* prettier-ignore */}
+            <p className="fs-sm-10">
               For the last 3 years I have worked for Eurogarages America (EGA) as a Full Stack Developer I and was promoted to II after 2 years. 
             was responsible for greenfield development and updating/supporting EGA&apos;s (EGA) SmartRewards application. I mostly work on the 
             back-end, however I obviously have front-end experience. For Smartrewards version 6; I worked with ResultStack, 
@@ -39,53 +35,81 @@ export default function Home() {
             <br/> <br/>
               In my free time I enjoy tinkering around in Unity and UE5 in hopes to create a video game that I can bring to the market.
           </p>
-					</div>
-				</div>
-				{/*First row end*/}
+          </div>
+        </div>
+      </div>
 
-				{/*Second row*/}
-				<div className="row">
-					<div id="carousel_a" className="carousel slide">
-						<div className="carousel-inner">
-							<div className="carousel-item active">
-								<Image src={lsrhs} className="d-block w-100" alt="..." />
-							</div>
-							<div className="carousel-item">
-								<Image src={gristMill} className="d-block w-100" alt="..." />
-							</div>
-							<div className="carousel-item">
-								<Image src={fsu} className="d-block w-100" alt="..." />
-							</div>
-						</div>
-						<button
-							className="carousel-control-prev"
-							type="button"
-							data-bs-target="#carousel_a"
-							data-bs-slide="prev"
-						>
-							<span
-								className="carousel-control-prev-icon"
-								aria-hidden="true"
-							></span>
-							<span className="visually-hidden">Previous</span>
-						</button>
-						<button
-							className="carousel-control-next"
-							type="button"
-							data-bs-target="#carousel_a"
-							data-bs-slide="next"
-						>
-							<span
-								className="carousel-control-next-icon"
-								aria-hidden="true"
-							></span>
-							<span className="visually-hidden">Next</span>
-						</button>
-					</div>
-				</div>
-				{/*Second row end*/}
-			</div>
-			{/*First container end*/}
-		</>
-	);
+      <div className="row p-3">
+        <div
+          id="dynamicCarousel"
+          className="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div className="container-sm">
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <div className="align-items-center">
+                  <Image
+                    src={gristMill}
+                    id="carouselItem"
+                    className="d-block w-100"
+                    alt="Wayside Inn Grist Mill"
+                  />
+                </div>
+              </div>
+
+              <div className="carousel-item">
+                <div className="align-items-center">
+                  <Image
+                    src={lsrhs}
+                    id="carouselItem"
+                    className="d-block w-100"
+                    alt="Lincoln-Sudbury Regional Highschool"
+                  />
+                </div>
+              </div>
+
+              <div className="carousel-item">
+                <div className="align-items-center">
+                  <Image
+                    src={fsu}
+                    id="carouselItem"
+                    className="d-block w-100"
+                    alt="Framingham State University"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button
+              className="carousel-control-prev"
+              id="carouselButton"
+              type="button"
+              data-bs-target="#dynamicCarousel"
+              data-bs-slide="prev"
+            >
+              <span
+                className="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              id="carouselButton"
+              type="button"
+              data-bs-target="#dynamicCarousel"
+              data-bs-slide="next"
+            >
+              <span
+                className="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

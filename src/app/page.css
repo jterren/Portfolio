@@ -1,0 +1,7 @@
+#carouselItem {
+  max-height: 500px;
+}
+
+#carouselButton {
+  filter: brightness(0) invert(1);
+}
