@@ -1,4 +1,3 @@
-"use client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./page.css";
 import Image from "next/image";
@@ -25,8 +24,8 @@ export default function Home() {
             {/* prettier-ignore */}
             <p className="fs-sm-10">
               For the last 3 years I have worked for Eurogarages America (EGA) as a Full Stack Developer I and was promoted to II after 2 years. 
-            was responsible for greenfield development and updating/supporting EGA&apos;s (EGA) SmartRewards application. I mostly work on the 
-            back-end, however I obviously have front-end experience. For Smartrewards version 6; I worked with ResultStack, 
+            I was responsible for greenfield development and updating/supporting EGA&apos;s (EGA) SmartRewards application. I mostly work on the 
+            back-end. However I obviously have front-end experience. For Smartrewards version 6 I worked with ResultStack, 
             Forter and Chase Merchant services to integrate credit/debit payments.
             <br/> <br/>
               Supporting the high ROI projects is very important, however my passion is in architecting and developing greenfield projects. 
