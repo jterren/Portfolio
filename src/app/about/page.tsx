@@ -1,30 +1,31 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { resumeHTML } from "../components/resume";
+import CollapsibleIframe from "../components/collapsibleFrame";
 
-export const dynamicParams = true; // or false, to 404 on unknown paths
-
-export async function generateStaticParams() {
-  const data: object = await fetch("/api/getResume").then((res) => res.json());
-  console.log("Data:\n", data);
-  return data;
-}
-
-export default async function About(props: { data: object }) {
-  console.log("Recieved:\n", props.data);
+export default async function About() {
+  const pdfData = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/getPdf?${new URLSearchParams({
+      fileName: process.env.CURRENT_RESUME || "",
+    })}`
+  );
 
   return (
     <>
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "100vh" }}
-      >
-        <iframe
-          src="/Terren_Resume.pdf"
-          width="90%"
-          style={{ padding: "5%", alignContent: "center" }}
-          height="600px"
-          title="PDF Viewer"
-        />
+      <div className="container-sm justify-content-center align-items-center">
+        <div className="dropdown">
+          <CollapsibleIframe buttonLabel={"PDF Viewer"}>
+            <iframe
+              src={process.env.CURRENT_RESUME}
+              width="100%"
+              style={{ padding: "5%", alignContent: "center" }}
+              height="600px"
+              title="PDF Viewer"
+            />
+          </CollapsibleIframe>
+        </div>
+        {resumeHTML((await pdfData.json()).message)}
       </div>
+
       {/* <script
 				src="https://platform.linkedin.com/badges/js/profile.js"
 				async
