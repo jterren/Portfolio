@@ -2,8 +2,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
-import slimePng from "../../assets/slime_bounce.png";
-import slimeGif from "../../assets/slime_bounce.gif";
+import slimePng from "../assets/slime_bounce.png";
+import slimeGif from "../assets/slime_bounce.gif";
 
 export default function Navbar() {
   const [isHovered, setIsHovered] = useState(false);

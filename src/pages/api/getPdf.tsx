@@ -5,13 +5,11 @@ type ResponseData = {
   message: string;
 };
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const data = JSON.stringify(getPdfJson("./public/Example.pdf"));
-
-  const html = <></>;
-
-  res.status(200).json({ message: html });
+  res
+    .status(200)
+    .json({ message: await getPdfJson(`./public/${req.query.fileName}`) });
 }

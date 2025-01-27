@@ -1,4 +1,4 @@
 interface LinkElement {
-	text: string;
-	route: string;
+  text: string;
+  route: string;
 }
