@@ -18,9 +18,9 @@ const CollapsibleWrapper = ({
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container-sm">
       <button
-        className="btn btn-primary mb-3"
+        className="btn btn-primary"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#collapsibleContent"
@@ -35,7 +35,7 @@ const CollapsibleWrapper = ({
         className={`collapse ${isVisible ? "show" : ""}`}
         id="collapsibleContent"
       >
-        <div className="card card-body">{children}</div>
+        {children}
       </div>
     </div>
   );

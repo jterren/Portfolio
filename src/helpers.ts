@@ -1,4 +1,5 @@
 import PDFParser from "pdf2json";
+import fs from "fs";
 
 export const getPdfJson = (filePath: string) =>
   new Promise<string>(async (res, rej) => {
@@ -14,18 +15,13 @@ export const getPdfJson = (filePath: string) =>
         if (pdfData == null) {
           rej(genericError);
         }
-
-        const pages: string[] = [];
-
-        pdfData.Pages.map(async (x) => {
-          let lines: string[] = [];
-          x.Texts.map((cur) => {
-            if (cur.R[0].T != "%20")
-              lines.push(`${decodeURIComponent(cur.R[0].T)}\n`);
-          });
-          pages.push(lines.toString());
-          lines = [];
-        });
+        fs.writeFile(
+          "./public/Example.json",
+          JSON.stringify(pdfData.Pages),
+          () => {
+            console.log("Dones");
+          }
+        );
         res(JSON.stringify(pdfData.Pages));
       });
 

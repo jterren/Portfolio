@@ -2,15 +2,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
-import slimePng from "../assets/slime_bounce.png";
-import slimeGif from "../assets/slime_bounce.gif";
 
 export default function Navbar() {
   const [isHovered, setIsHovered] = useState(false);
-  const links: LinkElement[] = [
-    { text: "About", route: "about" },
-    { text: "Contact", route: "contact" },
-  ];
+  const links: LinkElement[] = [{ text: "About", route: "about" }];
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -18,7 +13,7 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <Link href="/" className="navbar-brand">
             <Image
-              src={isHovered ? slimeGif : slimePng}
+              src={isHovered ? "/slime_bounce.gif" : "/slime_bounce.png"}
               alt={"Bouncing Slime by Jake Terren"}
               width={64}
               height={64}
