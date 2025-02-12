@@ -1,4 +1,4 @@
-import { getPdfJson } from "@/helpers";
+import { getPdfJson } from "../../helpers";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type ResponseData = {
