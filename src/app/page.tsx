@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <div className="p-3 flex justify-center items-center min-h-screen bg-black">
         <iframe
-          src="http://127.0.0.1:3000/about"
+          src={`${process.env.GAME_PATH}`}
           width="100%"
           height="100%"
           className="border-none min-h-screen w-full"
