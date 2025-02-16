@@ -12,8 +12,8 @@ export default function Home() {
     codeUrl: "/Build/Build.wasm",
   });
   const underConstruction = process.env.NEXT_PUBLIC_UNITY_ENABLED
-    ? true
-    : false;
+    ? false
+    : true;
   return (
     <>
       <div className="container-sm p-3 ">
