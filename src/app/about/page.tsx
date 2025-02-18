@@ -10,9 +10,18 @@ import { resumeHTML } from "../components/resume";
 export const dynamic = "force-dynamic";
 
 export default async function About() {
-  const pdfData: PDFLine[] = (
-    await (await fetch(`https://${process.env.VERCEL_URL}/api/getPdf`)).json()
-  ).data;
+  const response = await fetch(
+    `${process.env.NODE_ENV != "development" ? "https://" : "http://"}${
+      process.env.VERCEL_URL
+    }/api/getPdf`
+  );
+  let pdfData: PDFLine[] = [];
+
+  if (!response.ok) {
+    console.log("Server error occured");
+  } else {
+    pdfData = (await response.json()).data;
+  }
 
   return (
     <>
@@ -58,11 +67,13 @@ export default async function About() {
               />
             </CollapsibleIframe>
           </div>
-          <div className="dropdown m-3">
-            <CollapsibleIframe buttonLabel={"View HTML"}>
-              {resumeHTML(pdfData)}
-            </CollapsibleIframe>
-          </div>
+          {response.ok && (
+            <div className="dropdown m-3">
+              <CollapsibleIframe buttonLabel={"View HTML"}>
+                {resumeHTML(pdfData)}
+              </CollapsibleIframe>
+            </div>
+          )}
         </div>
       </div>
       <div className="row p-5">

@@ -2,7 +2,7 @@ import React from "react";
 
 const PdfToHtml: React.FC<PDFData> = ({ lines }) => {
   return (
-    <div className="container">
+    <div className="container p-1">
       <h3>HTML generated from PDF</h3>
       {lines.map((line, lineIndex) => {
         return (
