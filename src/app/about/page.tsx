@@ -11,7 +11,9 @@ export const dynamic = "force-dynamic";
 
 export default async function About() {
   const pdfData: PDFLine[] = (
-    await (await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getPdf`)).json()
+    await (
+      await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPdf`)
+    ).json()
   ).data;
 
   return (
