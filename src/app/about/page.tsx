@@ -20,7 +20,8 @@ export default async function About() {
   if (!response.ok) {
     console.log("Server error occured");
   } else {
-    pdfData = (await response.json()).data;
+    pdfData = JSON.parse(await response.json()).data;
+    console.log(pdfData);
   }
 
   return (
