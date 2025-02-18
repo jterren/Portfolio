@@ -1,5 +1,5 @@
+"use client";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import { resumeHTML } from "../components/resume";
 import CollapsibleIframe from "../components/collapsibleFrame";
 import Image from "next/image";
 import headShot from "../assets/Headshot.jpg";
@@ -7,13 +7,39 @@ import lsrhs from "../assets/lsrhs.jpg";
 import gristMill from "../assets/wayside-inn-grist-mill.jpg";
 import fsu from "../assets/fsu.jpg";
 import "../global.css";
+import resumeHTML from "../components/resume";
+import React from "react";
+export const dynamic = "force-dynamic";
 
-export default async function About() {
-  // const pdfData = await fetch( //Re-enable when resumeHTML is finished
-  //   `${process.env.NEXT_PUBLIC_API_URL}/api/getPdf?${new URLSearchParams({
-  //     fileName: process.env.CURRENT_RESUME || "",
-  //   })}`
-  // );
+export default function About() {
+  const [pdfData, setPdfData] = React.useState<PDFLine[]>([]);
+  const [fetchError, setFetchError] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    let isMounted = true;
+
+    fetch(`/api/getPdf`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`${response.status} - Server error occurred`);
+        }
+        return response.json();
+      })
+      .then((body) => {
+        if (isMounted) setPdfData(body.data);
+      })
+      .catch((error) => {
+        if (isMounted) setFetchError(error.message);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <>
@@ -46,12 +72,12 @@ export default async function About() {
         </div>
       </div>
       <div className="container-sm justify-content-center align-items-center p-3">
-        <div className="row">
+        <div className="row p-3">
           <h2>Resume</h2>
           <div className="dropdown m-3">
             <CollapsibleIframe buttonLabel={"PDF Viewer"}>
               <iframe
-                src={process.env.CURRENT_RESUME}
+                src={process.env.NEXT_PUBLIC_CURRENT_RESUME}
                 width="100%"
                 style={{ padding: "1%", alignContent: "center" }}
                 height="750px"
@@ -59,10 +85,20 @@ export default async function About() {
               />
             </CollapsibleIframe>
           </div>
-          {/* {resumeHTML((await pdfData.json()).message)} //Currently busted, is it worth the work?*/}
+          {!loading ? (
+            fetchError == null && (
+              <div className="dropdown m-3">
+                <CollapsibleIframe buttonLabel={"View HTML"}>
+                  {resumeHTML(pdfData)}
+                </CollapsibleIframe>
+              </div>
+            )
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </div>
-      <div className="row p-3">
+      <div className="row p-5">
         <div
           id="dynamicCarousel"
           className="carousel slide"
@@ -132,22 +168,6 @@ export default async function About() {
           </div>
         </div>
       </div>
-
-      {/* <script //Pretty sure LinkedIn is blocking this.
-				src="https://platform.linkedin.com/badges/js/profile.js"
-				async
-				defer
-				type="text/javascript"
-			></script>
-			<div
-				className="badge-base LI-profile-badge"
-				data-locale="en_US"
-				data-size="medium"
-				data-theme="dark"
-				data-type="VERTICAL"
-				data-vanity="jacob-terren"
-				data-version="v1"
-			></div> */}
     </>
   );
 }

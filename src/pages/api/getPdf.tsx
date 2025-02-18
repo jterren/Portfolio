@@ -1,15 +1,17 @@
+import path from "path";
 import { getPdfJson } from "../../helpers";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type ResponseData = {
-  message: string;
-};
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
+  res: NextApiResponse
 ) {
-  res
-    .status(200)
-    .json({ message: await getPdfJson(`./public/${req.query.fileName}`) });
+  try {
+    res.status(200).json({
+      data: await getPdfJson(path.resolve("./public", "Terren_Resume.pdf")),
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ data: "Server error occured." });
+  }
 }
