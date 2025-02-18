@@ -10,19 +10,30 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
+        <Link href="/" className="navbar-brand">
+          <Image
+            src={isHovered ? "/slime_bounce.gif" : "/slime_bounce.png"}
+            alt="Bouncing Slime by Jake Terren"
+            width={64}
+            height={64}
+            unoptimized
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{ position: "relative", top: "-15px" }}
+          />
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <Link href="/" className="navbar-brand">
-            <Image
-              src={isHovered ? "/slime_bounce.gif" : "/slime_bounce.png"}
-              alt={"Bouncing Slime by Jake Terren"}
-              width={64}
-              height={64}
-              unoptimized
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              style={{ position: "relative", top: "-15px" }}
-            />
-          </Link>
           <ul className="navbar-nav">{getLinks(links)}</ul>
         </div>
       </div>
