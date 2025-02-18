@@ -7,6 +7,7 @@ import gristMill from "../assets/wayside-inn-grist-mill.jpg";
 import fsu from "../assets/fsu.jpg";
 import "../global.css";
 import { resumeHTML } from "../components/resume";
+export const dynamic = "force-dynamic";
 
 export default async function About() {
   const pdfData: PDFLine[] = (
