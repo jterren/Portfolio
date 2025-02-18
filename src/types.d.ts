@@ -30,6 +30,22 @@ interface PdfPage {
   Boxsets: unknown[];
 }
 
-interface PdfData {
-  pages: PdfPage[];
+interface PDFText {
+  text: string;
+  x: number;
+  formatting: {
+    fontSize: number;
+    isBold: boolean;
+    isItalic: boolean;
+    align: string;
+  };
+}
+
+interface PDFLine {
+  y: number;
+  texts: PDFText[];
+}
+
+interface PDFData {
+  lines: PDFLine[];
 }

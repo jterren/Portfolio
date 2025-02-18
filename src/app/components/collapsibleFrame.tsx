@@ -1,6 +1,6 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 interface CollapsibleWrapperProps {
   children: React.ReactNode;
@@ -12,6 +12,7 @@ const CollapsibleWrapper = ({
   buttonLabel,
 }: CollapsibleWrapperProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const uniqueId = `collapsible-${useId().replace(/[^a-zA-Z0-9-_]/g, "")}`; // Generate a unique ID
 
   const toggleContent = () => {
     setIsVisible(!isVisible);
@@ -23,18 +24,15 @@ const CollapsibleWrapper = ({
         className="btn btn-primary"
         type="button"
         data-bs-toggle="collapse"
-        data-bs-target="#collapsibleContent"
+        data-bs-target={uniqueId}
         aria-expanded={isVisible}
-        aria-controls="collapsibleContent"
+        aria-controls={uniqueId}
         onClick={toggleContent}
       >
         {isVisible ? `Hide ${buttonLabel}` : `Show ${buttonLabel}`}
       </button>
 
-      <div
-        className={`collapse ${isVisible ? "show" : ""}`}
-        id="collapsibleContent"
-      >
+      <div className={`collapse ${isVisible ? "show" : ""}`} id={uniqueId}>
         {children}
       </div>
     </div>

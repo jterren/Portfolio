@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-// import { resumeHTML } from "../components/resume";
 import CollapsibleIframe from "../components/collapsibleFrame";
 import Image from "next/image";
 import headShot from "../assets/Headshot.jpg";
@@ -7,13 +6,12 @@ import lsrhs from "../assets/lsrhs.jpg";
 import gristMill from "../assets/wayside-inn-grist-mill.jpg";
 import fsu from "../assets/fsu.jpg";
 import "../global.css";
+import { resumeHTML } from "../components/resume";
 
 export default async function About() {
-  // const pdfData = await fetch( //Re-enable when resumeHTML is finished
-  //   `${process.env.NEXT_PUBLIC_API_URL}/api/getPdf?${new URLSearchParams({
-  //     fileName: process.env.CURRENT_RESUME || "",
-  //   })}`
-  // );
+  const pdfData: PDFLine[] = (
+    await (await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getPdf`)).json()
+  ).data;
 
   return (
     <>
@@ -46,7 +44,7 @@ export default async function About() {
         </div>
       </div>
       <div className="container-sm justify-content-center align-items-center p-3">
-        <div className="row">
+        <div className="row p-3">
           <h2>Resume</h2>
           <div className="dropdown m-3">
             <CollapsibleIframe buttonLabel={"PDF Viewer"}>
@@ -59,10 +57,14 @@ export default async function About() {
               />
             </CollapsibleIframe>
           </div>
-          {/* {resumeHTML((await pdfData.json()).message)} //Currently busted, is it worth the work?*/}
+          <div className="dropdown m-3">
+            <CollapsibleIframe buttonLabel={"View HTML"}>
+              {resumeHTML(pdfData)}
+            </CollapsibleIframe>
+          </div>
         </div>
       </div>
-      <div className="row p-3">
+      <div className="row p-5">
         <div
           id="dynamicCarousel"
           className="carousel slide"
@@ -132,22 +134,6 @@ export default async function About() {
           </div>
         </div>
       </div>
-
-      {/* <script //Pretty sure LinkedIn is blocking this.
-				src="https://platform.linkedin.com/badges/js/profile.js"
-				async
-				defer
-				type="text/javascript"
-			></script>
-			<div
-				className="badge-base LI-profile-badge"
-				data-locale="en_US"
-				data-size="medium"
-				data-theme="dark"
-				data-type="VERTICAL"
-				data-vanity="jacob-terren"
-				data-version="v1"
-			></div> */}
     </>
   );
 }
