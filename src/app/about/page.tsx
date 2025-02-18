@@ -1,3 +1,4 @@
+"use client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CollapsibleIframe from "../components/collapsibleFrame";
 import Image from "next/image";
@@ -6,23 +7,39 @@ import lsrhs from "../assets/lsrhs.jpg";
 import gristMill from "../assets/wayside-inn-grist-mill.jpg";
 import fsu from "../assets/fsu.jpg";
 import "../global.css";
-import { resumeHTML } from "../components/resume";
+import resumeHTML from "../components/resume";
+import React from "react";
 export const dynamic = "force-dynamic";
 
-export default async function About() {
-  const response = await fetch(
-    `${process.env.NODE_ENV != "development" ? "https://" : "http://"}${
-      process.env.VERCEL_URL
-    }/api/getPdf`
-  );
-  let pdfData: PDFLine[] = [];
+export default function About() {
+  const [pdfData, setPdfData] = React.useState<PDFLine[]>([]);
+  const [fetchError, setFetchError] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState<boolean>(true);
 
-  if (!response.ok) {
-    console.log("Server error occured");
-  } else {
-    pdfData = JSON.parse(await response.json()).data;
-    console.log(pdfData);
-  }
+  React.useEffect(() => {
+    let isMounted = true;
+
+    fetch(`/api/getPdf`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`${response.status} - Server error occurred`);
+        }
+        return response.json();
+      })
+      .then((body) => {
+        if (isMounted) setPdfData(body.data);
+      })
+      .catch((error) => {
+        if (isMounted) setFetchError(error.message);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <>
@@ -60,7 +77,7 @@ export default async function About() {
           <div className="dropdown m-3">
             <CollapsibleIframe buttonLabel={"PDF Viewer"}>
               <iframe
-                src={process.env.CURRENT_RESUME}
+                src={process.env.NEXT_PUBLIC_CURRENT_RESUME}
                 width="100%"
                 style={{ padding: "1%", alignContent: "center" }}
                 height="750px"
@@ -68,12 +85,16 @@ export default async function About() {
               />
             </CollapsibleIframe>
           </div>
-          {response.ok && (
-            <div className="dropdown m-3">
-              <CollapsibleIframe buttonLabel={"View HTML"}>
-                {resumeHTML(pdfData)}
-              </CollapsibleIframe>
-            </div>
+          {!loading ? (
+            fetchError == null && (
+              <div className="dropdown m-3">
+                <CollapsibleIframe buttonLabel={"View HTML"}>
+                  {resumeHTML(pdfData)}
+                </CollapsibleIframe>
+              </div>
+            )
+          ) : (
+            <p>Loading...</p>
           )}
         </div>
       </div>

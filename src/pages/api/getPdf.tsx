@@ -7,11 +7,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    res.status(200).json(
-      JSON.stringify({
-        data: await getPdfJson(path.resolve("./public", "Terren_Resume.pdf")),
-      })
-    );
+    res.status(200).json({
+      data: await getPdfJson(path.resolve("./public", "Terren_Resume.pdf")),
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ data: "Server error occured." });
