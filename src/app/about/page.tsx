@@ -15,10 +15,9 @@ export default function About() {
   const [pdfData, setPdfData] = React.useState<PDFLine[]>([]);
   const [fetchError, setFetchError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [bio, setBio] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    let isMounted = true;
-
     fetch(`/api/getPdf`)
       .then((response) => {
         if (!response.ok) {
@@ -27,18 +26,22 @@ export default function About() {
         return response.json();
       })
       .then((body) => {
-        if (isMounted) setPdfData(body.data);
+        setPdfData(body.data);
       })
       .catch((error) => {
-        if (isMounted) setFetchError(error.message);
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
+        setFetchError(error.message);
       });
 
-    return () => {
-      isMounted = false;
-    };
+    fetch("/api/mongoRead?collection=posts&title=Bio")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.data.length > 0) {
+          setBio(data.data[0].body);
+        }
+      })
+      .catch((err) => console.error("Error fetching bio:", err));
+
+    setLoading(false);
   }, []);
 
   return (
@@ -54,19 +57,10 @@ export default function About() {
             <Image src={headShot} alt={"Test image"} className="img-fluid" />
           </div>
 
-          <div className="col-sm-6 text-center">
+          <div className="col-sm-6">
             {/* prettier-ignore */}
-            <p className="fs-sm-10">
-              For the last 3 years I have worked for Eurogarages America (EGA) as a Full Stack Developer I and was promoted to II after 2 years. 
-            I was responsible for greenfield development and updating/supporting EGA&apos;s (EGA) SmartRewards application. I mostly work on the 
-            back-end. However I obviously have front-end experience. For Smartrewards version 6 I worked with ResultStack, 
-            Forter and Chase Merchant services to integrate credit/debit payments.
-            <br/> <br/>
-              Supporting the high ROI projects is very important, however my passion is in architecting and developing greenfield projects. 
-            I found I learn the most when creating something from the ground up. Working hand in hand with my team and stakeholders I had 
-            the opportunity to build exciting new applications at EGA.
-            <br/> <br/>
-              In my free time I enjoy tinkering around in Unity and UE5 in hopes to create a video game that I can bring to the market.
+            <p className="fs-sm-10" style={{whiteSpace: "pre-line"}}>
+              {bio}
           </p>
           </div>
         </div>
