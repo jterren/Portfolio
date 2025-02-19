@@ -19,7 +19,7 @@ export default async function handler(
       }
     );
     res.status(200).json({
-      data: pdfData,
+      data: await pdfData(),
     });
   } catch (err) {
     console.log(err);
