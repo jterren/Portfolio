@@ -6,10 +6,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const tag = new URL(req.url || "").searchParams.get("tag");
+    const tag = new URL(
+      req.url!,
+      `http://${req.headers.host}`
+    ).searchParams.get("tag");
     if (!tag) return res.json({ revalidated: false, status: 500 });
     revalidateTag(tag);
-    return res.json({ revalidated: true, now: Date.now() });
+    return res.json({ revalidated: true, status: 200 });
   } catch (error) {
     console.log("Could not invalidate cache: ", error);
     return res.json({ revalidated: false, status: 500 });
