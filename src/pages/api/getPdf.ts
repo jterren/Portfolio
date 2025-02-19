@@ -8,14 +8,18 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    const fileName = process.env.NEXT_PUBLIC_CURRENT_RESUME;
+    const tags = [`files`, String(fileName).toLowerCase()];
     const pdfData = unstable_cache(
       async () => {
-        return await getPdfJson(path.resolve("./public", "Terren_Resume.pdf"));
+        return await getPdfJson(
+          path.resolve("./public", fileName || "Terren_Resume.pdf")
+        );
       },
       [],
       {
         revalidate: 3600,
-        tags: ["Terren_Resume.pdf"],
+        tags,
       }
     );
     res.status(200).json({

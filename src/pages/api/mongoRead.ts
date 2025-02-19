@@ -23,6 +23,12 @@ export default async function handler(
       if (key !== "collection") filters[key] = value;
     });
 
+    const tags = [
+      `mongoRead`,
+      `${collectionName}`,
+      `${String(filters.title).toLowerCase()}`,
+    ];
+
     const readMongoDB = unstable_cache(
       async () => {
         const { db } = await connectToDatabase();
@@ -31,7 +37,7 @@ export default async function handler(
       [],
       {
         revalidate: 3600,
-        tags: [`mongoRead-${collectionName}-${JSON.stringify(filters)}`],
+        tags,
       }
     );
 

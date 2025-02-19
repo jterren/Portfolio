@@ -19,7 +19,7 @@ export default function About() {
   const [loadingBio, setBioLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    fetch(`/api/getPdf`, { cache: "no-store" })
+    fetch(`/api/getPdf`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`${response.status} - Server error occurred`);
@@ -34,7 +34,7 @@ export default function About() {
         console.error("Error fetching pdf content:", err);
       });
 
-    fetch("/api/mongoRead?collection=posts&title=Bio", { cache: "no-store" })
+    fetch("/api/mongoRead?collection=posts&title=Bio")
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.data.length > 0) {
