@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { connectToDatabase } from "../../lib/mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -22,8 +23,19 @@ export default async function handler(
       if (key !== "collection") filters[key] = value;
     });
 
-    const { db } = await connectToDatabase();
-    const results = await db.collection(collectionName).find(filters).toArray();
+    const readMongoDB = unstable_cache(
+      async () => {
+        const { db } = await connectToDatabase();
+        return await db.collection(collectionName).find(filters).toArray();
+      },
+      [],
+      {
+        revalidate: 3600,
+        tags: [`mongoRead-${collectionName}-${JSON.stringify(filters)}`],
+      }
+    );
+
+    const results = await readMongoDB();
 
     if (!results.length) {
       return res.json({
