@@ -9,16 +9,17 @@ import fsu from "../assets/fsu.jpg";
 import "../global.css";
 import resumeHTML from "../components/resume";
 import React from "react";
+import Loading from "../components/Loading";
 export const dynamic = "force-dynamic";
 
 export default function About() {
   const [pdfData, setPdfData] = React.useState<PDFLine[]>([]);
-  const [fetchError, setFetchError] = React.useState<string | null>(null);
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [bio, setBio] = React.useState<string | null>(null);
+  const [loadingPdfData, setPdfDataLoading] = React.useState<boolean>(true);
+  const [bio, setBio] = React.useState<string>("");
+  const [loadingBio, setBioLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    fetch(`/api/getPdf`)
+    fetch(`/api/getPdf`, { cache: "no-store" })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`${response.status} - Server error occurred`);
@@ -27,21 +28,21 @@ export default function About() {
       })
       .then((body) => {
         setPdfData(body.data);
+        setPdfDataLoading(false);
       })
-      .catch((error) => {
-        setFetchError(error.message);
+      .catch((err) => {
+        console.error("Error fetching pdf content:", err);
       });
 
-    fetch("/api/mongoRead?collection=posts&title=Bio")
+    fetch("/api/mongoRead?collection=posts&title=Bio", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.data.length > 0) {
           setBio(data.data[0].body);
+          setBioLoading(false);
         }
       })
       .catch((err) => console.error("Error fetching bio:", err));
-
-    setLoading(false);
   }, []);
 
   return (
@@ -59,9 +60,13 @@ export default function About() {
 
           <div className="col-sm-6">
             {/* prettier-ignore */}
-            <p className="fs-sm-10" style={{whiteSpace: "pre-line"}}>
-              {bio}
-          </p>
+            {!loadingBio ? (
+              <p className="fs-sm-10" style={{ whiteSpace: "pre-line" }}>
+                {bio}
+              </p>
+            ) : (
+              <Loading />
+            )}
           </div>
         </div>
       </div>
@@ -79,17 +84,11 @@ export default function About() {
               />
             </CollapsibleIframe>
           </div>
-          {!loading ? (
-            fetchError == null && (
-              <div className="dropdown m-3">
-                <CollapsibleIframe buttonLabel={"View HTML"}>
-                  {resumeHTML(pdfData)}
-                </CollapsibleIframe>
-              </div>
-            )
-          ) : (
-            <p>Loading...</p>
-          )}
+          <div className="dropdown m-3">
+            <CollapsibleIframe buttonLabel={"View HTML"}>
+              {!loadingPdfData ? resumeHTML(pdfData) : <Loading />}
+            </CollapsibleIframe>
+          </div>
         </div>
       </div>
       <div className="row p-5">
