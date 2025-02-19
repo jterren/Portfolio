@@ -1,12 +1,9 @@
 import { revalidateTag } from "next/cache";
-import { NextApiRequest } from "next";
+import { NextRequest } from "next/server";
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const tag = new URL(
-      req.url!,
-      `http://${req.headers.host}`
-    ).searchParams.get("tag");
+    const tag = req.nextUrl.searchParams.get("tag");
     if (!tag) return Response.json({ revalidated: false, status: 500 });
     revalidateTag(tag);
     return Response.json({ revalidated: true, status: 200 });
