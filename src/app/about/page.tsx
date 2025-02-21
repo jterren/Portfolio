@@ -17,14 +17,19 @@ export default function About() {
   const [loadingPdfData, setPdfDataLoading] = React.useState<boolean>(true);
   const [bio, setBio] = React.useState<string>("");
   const [loadingBio, setBioLoading] = React.useState<boolean>(true);
+  const [quote, setQuote] = React.useState<quote>({
+    author: "Albert Einstein",
+    text: "Try not to become a man of success, but rather try to become a man of value.",
+  });
+  const [loadingQuote, setQuoteLoading] = React.useState<boolean>(true);
 
-  React.useEffect(() => {
-    fetch(`/api/getPdf`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`${response.status} - Server error occurred`);
+  const fetchPdf = React.useCallback(async () => {
+    await fetch(`/api/getPdf`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`${res.status} - Server error occurred`);
         }
-        return response.json();
+        return res.json();
       })
       .then((body) => {
         setPdfData(body.data);
@@ -33,25 +38,54 @@ export default function About() {
       .catch((err) => {
         console.error("Error fetching pdf content:", err);
       });
+  }, []);
 
-    fetch("/api/mongoRead?collection=posts&title=Bio")
+  const fetchBio = React.useCallback(async () => {
+    await fetch("/api/mongoRead?collection=posts&title=Bio")
       .then((res) => res.json())
-      .then((data) => {
-        if (data.success && data.data.length > 0) {
-          setBio(data.data[0].body);
+      .then((body) => {
+        if (body.success && body.data.length > 0) {
+          setBio(body.data[0].text);
           setBioLoading(false);
         }
       })
       .catch((err) => console.error("Error fetching bio:", err));
   }, []);
 
+  const fetchQuote = React.useCallback(async () => {
+    await fetch("/api/mongoRead?collection=quotes")
+      .then((res) => res.json())
+      .then((body) => {
+        if (body.success && body.data.length > 0) {
+          const randomIndex = Math.floor(
+            Math.random() * (body.data.length - 1)
+          );
+
+          if (randomIndex < body.data.length) {
+            setQuote(body.data[randomIndex]);
+          }
+          setQuoteLoading(false);
+        }
+      })
+      .catch((err) => console.error("Error fetching bio:", err));
+  }, []);
+
+  React.useEffect(() => {
+    fetchPdf();
+    fetchBio();
+    fetchQuote();
+  }, [fetchBio, fetchPdf, fetchQuote]);
+
   return (
     <>
-      <h1 className={"p-5 text-white text-center fs-sm-1"}>
-        &quot;Try not to become a man of success, but rather try to become a man
-        of value&quot;
-        <br />- Albert Einstein
-      </h1>
+      {!loadingQuote ? (
+        <h1 className={"p-5 text-white text-center fs-sm-1"}>
+          &quot;{quote.text}&quot;
+          <br />- {quote.author}
+        </h1>
+      ) : (
+        <Loading />
+      )}
       <div className="container-sm p-3">
         <div className="row align-items-center g-5">
           <div className="col-sm-6">
