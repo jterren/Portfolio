@@ -71,16 +71,15 @@ export default function About() {
     fetchQuote();
   }, [fetchBio, fetchPdf, fetchQuote]);
 
-  return (
+  return loadingQuote || loadingPdfData || loadingBio ? (
+    <Loading />
+  ) : (
     <>
-      {!loadingQuote ? (
-        <h1 className={"p-5 text-white text-center fs-sm-1"}>
-          &quot;{quote.text}&quot;
-          <br />- {quote.author}
-        </h1>
-      ) : (
-        <Loading />
-      )}
+      <h1 className={"p-5 text-white text-center fs-sm-1"}>
+        &quot;{quote.text}&quot;
+        <br />- {quote.author}
+      </h1>
+
       <div className="container-sm p-3">
         <div className="row align-items-center g-5">
           <div className="col-sm-6">
@@ -88,14 +87,9 @@ export default function About() {
           </div>
 
           <div className="col-sm-6">
-            {/* prettier-ignore */}
-            {!loadingBio ? (
-              <p className="fs-sm-10" style={{ whiteSpace: "pre-line" }}>
-                {bio}
-              </p>
-            ) : (
-              <Loading />
-            )}
+            <p className="fs-sm-10" style={{ whiteSpace: "pre-line" }}>
+              {bio}
+            </p>
           </div>
         </div>
       </div>
@@ -115,7 +109,7 @@ export default function About() {
           </div>
           <div className="dropdown m-3">
             <CollapsibleIframe buttonLabel={"View HTML"}>
-              {!loadingPdfData ? resumeHTML(pdfData) : <Loading />}
+              {resumeHTML(pdfData)}
             </CollapsibleIframe>
           </div>
         </div>
