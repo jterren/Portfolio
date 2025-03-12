@@ -23,14 +23,18 @@ export default async function handler(
       if (key !== "collection") filters[key] = value;
     });
 
-    const tags = [`mongoRead`, `${collectionName}`, ...Object.keys(filters)];
+    const tags = [
+      `mongoRead`,
+      `${collectionName}`,
+      JSON.stringify(Object.keys(filters)),
+    ];
 
     const readMongoDB = unstable_cache(
       async () => {
         const { db } = await connectToDatabase();
         return await db.collection(collectionName).find(filters).toArray();
       },
-      [],
+      [...tags],
       {
         revalidate: 3600,
         tags,
@@ -38,6 +42,8 @@ export default async function handler(
     );
 
     const results = await readMongoDB();
+
+    console.log(results);
 
     if (!results.length) {
       return res.json({

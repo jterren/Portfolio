@@ -25,11 +25,11 @@ export default function About() {
 
   const fetchPdf = React.useCallback(async () => {
     await fetch(`/api/getPdf`)
-      .then((res) => {
+      .then(async (res) => {
         if (!res.ok) {
           throw new Error(`${res.status} - Server error occurred`);
         }
-        return res.json();
+        return await res.json();
       })
       .then((body) => {
         setPdfData(body.data);
@@ -42,7 +42,7 @@ export default function About() {
 
   const fetchBio = React.useCallback(async () => {
     await fetch("/api/mongoRead?collection=posts&title=Bio")
-      .then((res) => res.json())
+      .then(async (res) => await res.json())
       .then((body) => {
         if (body.success && body.data.length > 0) {
           setBio(body.data[0].text);
@@ -54,20 +54,15 @@ export default function About() {
 
   const fetchQuote = React.useCallback(async () => {
     await fetch("/api/mongoRead?collection=quotes")
-      .then((res) => res.json())
+      .then(async (res) => await res.json())
       .then((body) => {
         if (body.success && body.data.length > 0) {
-          const randomIndex = Math.floor(
-            Math.random() * (body.data.length - 1)
-          );
-
-          if (randomIndex < body.data.length) {
-            setQuote(body.data[randomIndex]);
-          }
+          const randomIndex = Math.floor(Math.random() * body.data.length);
+          setQuote(body.data[randomIndex]);
           setQuoteLoading(false);
         }
       })
-      .catch((err) => console.error("Error fetching bio:", err));
+      .catch((err) => console.error("Error fetching quote:", err));
   }, []);
 
   React.useEffect(() => {
