@@ -43,8 +43,6 @@ export default async function handler(
 
     const results = await readMongoDB();
 
-    console.log(results);
-
     if (!results.length) {
       return res.json({
         success: false,
