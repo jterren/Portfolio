@@ -1,5 +1,4 @@
 import PDFParser, { Page } from "pdf2json";
-import fs from "fs";
 
 export const getPdfJson = (filePath: string) =>
   new Promise<PDFLine[]>(async (res, rej) => {
@@ -15,11 +14,6 @@ export const getPdfJson = (filePath: string) =>
         if (pdfData == null) {
           rej(genericError);
         }
-        fs.writeFile(
-          "./public/Example.json",
-          JSON.stringify(pdfData.Pages),
-          () => {}
-        );
         res(await parsePages(pdfData.Pages));
       });
 

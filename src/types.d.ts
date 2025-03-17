@@ -49,3 +49,8 @@ interface PDFLine {
 interface PDFData {
   lines: PDFLine[];
 }
+
+interface quote {
+  author: string;
+  text: string;
+}

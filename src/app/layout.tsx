@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import BootstrapClient from "./components/BootstrapClient";
 import Navbar from "./components/navBar";
 import Footer from "./components/footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -42,6 +43,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );
