@@ -5,9 +5,7 @@ import React, { useState } from "react";
 
 export default function Navbar() {
 	const [isHovered, setIsHovered] = useState(false);
-	const links: LinkElement[] = [
-		{ text: "The Wilting Demo", route: "theWilting" },
-	];
+	const links: LinkElement[] = [{ text: "The Wilting Demo", route: "unity" }];
 
 	return (
 		<nav className="navbar navbar-expand-lg bg-body-tertiary">
