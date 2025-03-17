@@ -26,3 +26,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 - NEXT_PUBLIC_UNITY_ENABLED: Feature flag to enable Unity WebGL player.
 - MONGODB_URI: MongoDB connection string.
 - MONGODB_DB: Collection name.
+
+## Hosting
+
+- Hosted on Vercel, utilizing their Hobby plan and taking advantage of their speed and analytics packages.
