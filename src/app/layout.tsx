@@ -5,8 +5,7 @@ import Navbar from "./components/navBar";
 import Footer from "./components/footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import Script from "next/script";
-import Turnstile from "./components/Turnstile";
+import TurnstileWidget from "./components/TurnstileWidget";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -39,16 +38,10 @@ export default function RootLayout({
 					name="viewport"
 					content="width=device-width, initial-scale=1"
 				/>
-				<Script
-					src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-					strategy="afterInteractive"
-					async
-					defer
-				/>
 			</head>
 
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
-				<Turnstile />
+				<TurnstileWidget />
 				<BootstrapClient />
 				<Navbar />
 				{children}
