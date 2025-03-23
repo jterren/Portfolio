@@ -15,9 +15,13 @@ import {
 import { tmpdir } from "os";
 import { join } from "path";
 import { pipeline } from "stream/promises";
-import * as unzipper from "unzipper";
-import * as dotenv from "dotenv";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+const dotenv = require("dotenv");
 dotenv.config();
+
+const unzipper = require("unzipper");
 
 // Validate environment variables
 const requiredEnv = ["R2_ENDPOINT", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY"];
