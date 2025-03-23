@@ -14,9 +14,9 @@ import {
 } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
-import unzipper from "unzipper";
 import { pipeline } from "stream/promises";
-import dotenv from "dotenv";
+import * as unzipper from "unzipper";
+import * as dotenv from "dotenv";
 dotenv.config();
 
 // Validate environment variables
