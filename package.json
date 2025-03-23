@@ -3,8 +3,8 @@
 	"version": "0.2.0",
 	"private": true,
 	"scripts": {
-		"deploy-unity": "ts-node scripts/deployUnity.ts",
-		"build": "npm run deploy-unity && next build",
+		"prebuild": "tsc scripts/deployUnity.ts --outDir scripts/build",
+		"build": "node scripts/build/deployUnity.js && next build",
 		"dev": "next dev",
 		"start": "next start",
 		"lint": "next lint"
