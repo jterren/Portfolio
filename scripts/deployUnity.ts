@@ -46,7 +46,7 @@ async function deployUnity() {
 		const localEtag = existsSync(etagPath)
 			? readFileSync(etagPath, "utf-8")
 			: "";
-
+		console.log(`Local etag: ${localEtag}, remote etag: ${remoteEtag}`);
 		if (remoteEtag === localEtag) {
 			console.log("✅ Unity files are up-to-date, skipping download.");
 			return;
