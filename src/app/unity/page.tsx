@@ -30,22 +30,30 @@ export default function Home() {
 	}, [loadingProgression]);
 
 	return (
-		<div className="m-3 d-flex flex-column justify-content-center align-items-center">
-			<h1 className="text-center">The Wilting Demo</h1>
-			{underConstruction ? (
-				<UnderConstruction />
-			) : (
-				<>
-					{!isLoaded && <p>Loading... {Math.round(progress * 100)}%</p>}
-					{isClient && (
-						<Unity
-							unityProvider={unityProvider}
-							className="p-5 w-100 h-100"
-							style={{ maxWidth: "90vw", maxHeight: "90vh" }}
-						/>
-					)}
-				</>
-			)}
-		</div>
+		<>
+			<div className="m-3 d-flex flex-column justify-content-center align-items-center">
+				<h1 className="text-center">The Wilting</h1>
+				<h2 className="text-center">Alpha version</h2>
+				{underConstruction ? (
+					<UnderConstruction />
+				) : (
+					<>
+						<h3>Controls</h3>
+						{/*prettier-ignore*/}
+						<pre>
+						Left/Right Mouse Buttons: Combat - W, A, S, D: Movement - Shift: Sprint - Esc: Pause Menu
+						</pre>
+						{!isLoaded && <p>Loading... {Math.round(progress * 100)}%</p>}
+						{isClient && (
+							<Unity
+								unityProvider={unityProvider}
+								className="p-3 w-100 h-100"
+								style={{ maxWidth: "90vw", maxHeight: "90vh" }}
+							/>
+						)}
+					</>
+				)}
+			</div>
+		</>
 	);
 }

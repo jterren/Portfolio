@@ -1,31 +1,39 @@
 {
-  "name": "project_stanley",
-  "version": "0.2.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@vercel/analytics": "^1.5.0",
-    "@vercel/speed-insights": "^1.2.0",
-    "bootstrap": "^5.3.3",
-    "mongodb": "^6.13.0",
-    "next": "^15.1.7",
-    "pdf2json": "^3.1.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-unity-webgl": "^9.7.0"
-  },
-  "devDependencies": {
-    "@types/bootstrap": "^5.2.10",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.3",
-    "typescript": "^5"
-  }
+	"name": "project_stanley",
+	"version": "0.2.0",
+	"private": true,
+	"scripts": {
+		"deploy:unity": "tsx scripts/deployUnity.ts",
+		"build": "npm run deploy:unity && next build",
+		"dev": "npm run deploy:unity && next dev",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@aws-sdk/client-s3": "^3.772.0",
+		"@vercel/analytics": "^1.5.0",
+		"@vercel/speed-insights": "^1.2.0",
+		"bootstrap": "^5.3.3",
+		"mongodb": "^6.13.0",
+		"next": "^15.1.7",
+		"pdf2json": "^3.1.4",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-turnstile": "^1.1.4",
+		"react-unity-webgl": "^9.7.0",
+		"unzipper": "^0.12.3"
+	},
+	"devDependencies": {
+		"@types/bootstrap": "^5.2.10",
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"@types/unzipper": "^0.10.11",
+		"dotenv": "^16.4.7",
+		"eslint": "^8",
+		"eslint-config-next": "15.0.3",
+		"tsx": "^4.19.3",
+		"typescript": "^5.8.2"
+	},
+	"type": "module"
 }
