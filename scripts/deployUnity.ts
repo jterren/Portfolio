@@ -3,26 +3,26 @@ import {
 	HeadObjectCommand,
 	GetObjectCommand,
 } from "@aws-sdk/client-s3";
-import {
-	createWriteStream,
-	createReadStream,
-	existsSync,
-	mkdirSync,
-	writeFileSync,
-	readFileSync,
-} from "fs";
+import { rm } from "node:fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import { Extract } from "unzipper";
 import { pipeline } from "stream/promises";
 import dotenv from "dotenv";
+import {
+	existsSync,
+	readFileSync,
+	createWriteStream,
+	createReadStream,
+	writeFileSync,
+} from "node:fs";
 
 // Load .env variables
 dotenv.config();
 
 const R2_BUCKET = "unity";
-const zipFileName = "Unity.zip";
-const etagPath = "scripts/.etag";
+const zipFileName = "unity.zip";
+const etagPath = "scripts/wilting.etag";
 
 const s3 = new S3Client({
 	region: "auto",
@@ -63,10 +63,12 @@ async function deployUnity() {
 		await pipeline(Body as NodeJS.ReadableStream, fileStream);
 
 		console.log("📦 Extracting Unity.zip...");
-		const unityDir = "public/";
-		if (!existsSync(unityDir)) mkdirSync(unityDir, { recursive: true });
+		const resourceDir = "public/";
+		const unityDir = `${resourceDir}Unity`;
+		if (existsSync(unityDir))
+			await rm(unityDir, { recursive: true, force: true });
 
-		await pipeline(createReadStream(zipPath), Extract({ path: unityDir }));
+		await pipeline(createReadStream(zipPath), Extract({ path: resourceDir }));
 
 		writeFileSync(etagPath, remoteEtag);
 		console.log("✅ Unity deployed and .etag updated.");

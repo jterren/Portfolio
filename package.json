@@ -5,7 +5,7 @@
 	"scripts": {
 		"deploy:unity": "tsx scripts/deployUnity.ts",
 		"build": "npm run deploy:unity && next build",
-		"dev": "next dev",
+		"dev": "npm run deploy:unity && next dev",
 		"start": "next start",
 		"lint": "next lint"
 	},
