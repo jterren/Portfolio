@@ -3,7 +3,6 @@ import Turnstile, { useTurnstile } from "react-turnstile";
 
 export default function TurnstileWidget() {
 	const turnstile = useTurnstile();
-	console.log(process.env.NODE_ENV);
 	return process.env.NODE_ENV == "production" ? (
 		<Turnstile
 			sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}

@@ -41,7 +41,7 @@ export default function RootLayout({
 			</head>
 
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
-				<TurnstileWidget />
+				{/* <TurnstileWidget /> //Crashing out, looks to be fighting with Vercel's protections. Which makes sense, disabling for now.*/}
 				<BootstrapClient />
 				<Navbar />
 				{children}
