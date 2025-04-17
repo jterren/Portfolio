@@ -42,3 +42,4 @@ next-env.d.ts
 .env
 /public/Unity
 /public/Unity.zip
+*.etag
