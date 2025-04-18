@@ -32,8 +32,14 @@ export default function Home() {
 	return (
 		<>
 			<div className="m-3 d-flex flex-column justify-content-center align-items-center">
-				<h1 className="text-center">The Wilting</h1>
-				<h2 className="text-center">Alpha version</h2>
+				<h1 className="text-center">The Wilting - Alpha</h1>
+				<a
+					href="https://github.com/users/jterren/projects/2/views/3"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					GitHub Roadmap
+				</a>
 				{underConstruction ? (
 					<UnderConstruction />
 				) : (
