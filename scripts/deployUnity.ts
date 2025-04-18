@@ -63,7 +63,7 @@ async function deployUnity() {
 		await pipeline(Body as NodeJS.ReadableStream, fileStream);
 
 		console.log("📦 Extracting Unity.zip...");
-		const resourceDir = "public/";
+		const resourceDir = "public/Unity";
 		const unityDir = `${resourceDir}Unity`;
 		if (existsSync(unityDir))
 			await rm(unityDir, { recursive: true, force: true });
