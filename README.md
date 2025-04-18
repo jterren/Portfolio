@@ -18,14 +18,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 - Resume viewer, parser, and html generator.
 - MongoDB to manage text content; quotes and bio.
-- The Wilting Demo, a unity game I am making. _STILL UNDER CONSTRUCTION ETA 3/24/25_
-
-## Secrets
-
-- NEXT_PUBLIC_CURRENT_RESUME: Location of the current Resume PDF.
-- NEXT_PUBLIC_UNITY_ENABLED: Feature flag to enable Unity WebGL player.
-- MONGODB_URI: MongoDB connection string.
-- MONGODB_DB: Collection name.
+- The Wilting Demo, a Unity game I am making.
 
 ## Hosting
 
