@@ -59,7 +59,7 @@ export const parsePages = (pages: Page[]) =>
             formatting: {
               fontSize: textObj.R[0].TS[1],
               isBold: textObj.R[0].TS[2] === 1,
-              isItalic: textObj.R[0].TS[2] === 1,
+							isItalic: textObj.R[0].TS[3] == 1,
               align: textObj.A || "left",
             },
           });
