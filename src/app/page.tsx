@@ -108,7 +108,7 @@ export default function About() {
 						</CollapsibleIframe>
 					</div>
 					<div className="dropdown m-3">
-						<CollapsibleIframe buttonLabel={"View HTML"}>
+						<CollapsibleIframe buttonLabel={"HTML Viewer"}>
 							{resumeHTML(pdfData)}
 						</CollapsibleIframe>
 					</div>
