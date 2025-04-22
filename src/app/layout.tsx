@@ -20,7 +20,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
 	title: "JT",
-	description: "Welcome! If you know Stanley, then you know me.",
+	description: "Welcome in, please take off your shoes.",
 	creator: "Jacob Terren",
 	icons: "/slime_bounce.png",
 };
