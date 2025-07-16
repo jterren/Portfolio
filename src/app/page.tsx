@@ -11,7 +11,7 @@ import Loading from "./components/Loading";
 export const dynamic = "force-dynamic";
 
 export default function About() {
-	const [pdfData, setPdfData] = React.useState<PDFLine[]>([]);
+	// const [pdfData, setPdfData] = React.useState<PDFLine[]>([]);
 	const [loadingPdfData, setPdfDataLoading] = React.useState<boolean>(true);
 	const [bio, setBio] = React.useState<string>("");
 	const [loadingBio, setBioLoading] = React.useState<boolean>(true);
@@ -21,22 +21,22 @@ export default function About() {
 	});
 	const [loadingQuote, setQuoteLoading] = React.useState<boolean>(true);
 
-	const fetchPdf = React.useCallback(async () => {
-		await fetch(`/api/getPdf`)
-			.then(async (res) => {
-				if (!res.ok) {
-					throw new Error(`${res.status} - Server error occurred`);
-				}
-				return await res.json();
-			})
-			.then((body) => {
-				setPdfData(body.data);
-				setPdfDataLoading(false);
-			})
-			.catch((err) => {
-				console.error("Error fetching pdf content:", err);
-			});
-	}, []);
+	// const fetchPdf = React.useCallback(async () => {
+	// 	await fetch(`/api/getPdf`)
+	// 		.then(async (res) => {
+	// 			if (!res.ok) {
+	// 				throw new Error(`${res.status} - Server error occurred`);
+	// 			}
+	// 			return await res.json();
+	// 		})
+	// 		.then((body) => {
+	// 			setPdfData(body.data);
+	// 			setPdfDataLoading(false);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.error("Error fetching pdf content:", err);
+	// 		});
+	// }, []);
 
 	const fetchBio = React.useCallback(async () => {
 		await fetch("/api/mongoRead?collection=posts&title=Bio")
@@ -64,10 +64,10 @@ export default function About() {
 	}, []);
 
 	React.useEffect(() => {
-		fetchPdf();
+		// fetchPdf();
 		fetchBio();
 		fetchQuote();
-	}, [fetchBio, fetchPdf, fetchQuote]);
+	}, [fetchBio, /*fetchPdf,*/ fetchQuote]);
 
 	return loadingQuote || loadingPdfData || loadingBio ? (
 		<Loading />
