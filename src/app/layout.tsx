@@ -5,7 +5,7 @@ import Navbar from "./components/navBar";
 import Footer from "./components/footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import TurnstileWidget from "./components/TurnstileWidget";
+// import TurnstileWidget from "./components/TurnstileWidget";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
