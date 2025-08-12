@@ -9,9 +9,12 @@ export default function Footer() {
 				<div className="container mx-auto flex flex-wrap justify-center gap-6 px-4 text-center md:justify-between">
 					<nav className="flex flex-wrap justify-center gap-6 text-sm">
 						<a href="https://www.buymeacoffee.com/jterren">
+							{/*Avoid unnecessarily configuring image host in next.config.js*/
+							/* eslint-disable-next-line @next/next/no-img-element*/}
 							<img
 								style={{ width: "150px", height: "75px", paddingRight: "1%" }}
 								src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=jterren&button_colour=BD5FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"
+								alt="Buy me a coffee"
 							/>
 						</a>
 						<a href="https://www.linkedin.com/in/jacob-terren/" target="_blank">

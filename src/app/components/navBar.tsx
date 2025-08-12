@@ -19,7 +19,11 @@ export default function Navbar() {
 						unoptimized
 						onMouseEnter={() => setIsHovered(true)}
 						onMouseLeave={() => setIsHovered(false)}
-						style={{ position: "relative", top: "-15px" }}
+						style={{
+							position: "relative",
+							top: "-15px",
+							imageRendering: "pixelated", //Avoids blurring pxel-art GIF
+						}}
 					/>
 				</Link>
 				<button
