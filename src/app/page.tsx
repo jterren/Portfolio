@@ -1,16 +1,16 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Image from "next/image";
 import headShot from "./assets/Headshot.jpg";
 import lsrhs from "./assets/lsrhs.jpg";
 import gristMill from "./assets/wayside-inn-grist-mill.jpg";
 import fsu from "./assets/fsu.jpg";
-import "./global.css";
 import React from "react";
 import Loading from "./components/Loading";
-export const dynamic = "force-dynamic";
+import { CarouselItem } from "./components/carouselItem";
+import "./global.css";
+export const dynamic = "force-dynamic"; //Ensure any changes to quotes or bio on backend are loaded upon refresh.
 
-export default function About() {
+export default function Home() {
 	// const [pdfData, setPdfData] = React.useState<PDFLine[]>([]);
 	// const [loadingPdfData, setPdfDataLoading] = React.useState<boolean>(true);
 	const [bio, setBio] = React.useState<string>("");
@@ -89,44 +89,32 @@ export default function About() {
 							<div className="container-sm">
 								<div className="carousel-inner">
 									<div className="carousel-item active">
-										<div className="align-items-center">
-											<Image
-												src={headShot}
-												id="carouselItem"
-												alt="Jacob Terren"
-												className="d-block w-100"
-											/>
-										</div>
+										<CarouselItem
+											img={headShot}
+											altText="Jacob Terren"
+											fitImg={true}
+										/>
 									</div>
 									<div className="carousel-item">
-										<div className="align-items-center">
-											<Image
-												src={fsu}
-												id="carouselItem"
-												className="d-block w-100"
-												alt="Framingham State University"
-											/>
-										</div>
+										<CarouselItem
+											img={fsu}
+											altText="Framingham State University"
+											fitImg={true}
+										/>
 									</div>
 									<div className="carousel-item">
-										<div className="align-items-center">
-											<Image
-												src={lsrhs}
-												id="carouselItem"
-												className="d-block w-100"
-												alt="Lincoln-Sudbury Regional Highschool"
-											/>
-										</div>
+										<CarouselItem
+											img={lsrhs}
+											altText="Lincoln-Sudbury Regional Highschool"
+											fitImg={false}
+										/>
 									</div>
 									<div className="carousel-item">
-										<div className="align-items-center">
-											<Image
-												src={gristMill}
-												id="carouselItem"
-												className="d-block w-100"
-												alt="Wayside Inn Grist Mill"
-											/>
-										</div>
+										<CarouselItem
+											img={gristMill}
+											altText="Wayside Inn Grist Mill"
+											fitImg={true}
+										/>
 									</div>
 								</div>
 								<button

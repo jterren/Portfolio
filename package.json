@@ -16,7 +16,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "bootstrap": "^5.3.3",
     "mongodb": "^6.13.0",
-    "next": "15.1.11",
+    "next": "^15.5.18",
     "pdf2json": "^3.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
